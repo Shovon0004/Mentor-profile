@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step by Step Form</title>
+<style>
+    .step {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<form id="stepForm">
+  
+  <div class="step" id="step1">
+    <h2>Step 1: </h2>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required><br><br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required><br><br>
+    <button type="button" onclick="nextStep(1)">Next</button>
+  </div>
+
+  
+  <div class="step" id="step2">
+    <h2>Step 2: </h2>
+    <label for="role">Select Role:</label>
+    <select id="role" name="role" onchange="toggleStep5()">
+      <option value="mentor">Mentor</option>
+      <option value="mentee">Mentee</option>
+    </select><br><br>
+    <button type="button" onclick="prevStep(1)">Previous</button>
+    <button type="button" onclick="nextStep(1)">Next</button>
+  </div>
+
+  
+  <div class="step" id="step3">
+    <h2>Step 3: </h2>
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" id="mobile" name="mobile" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <button type="button" onclick="prevStep(1)">Previous</button>
+    <button type="button" onclick="nextStep(1)">Next</button>
+  </div>
+
+  
+  <div class="step" id="step4">
+    <h2>Step 4:</h2>
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required><br><br>
+    <label for="city">Currently Living City:</label>
+    <input type="text" id="city" name="city" required><br><br>
+    <button type="button" onclick="prevStep(1)">Previous</button>
+    <button type="button" onclick="nextStep(1)">Next</button>
+  </div>
+
+  
+  <div class="step" id="step5">
+    <h2>Step 5: </h2>
+    <div id="mentorDetails" >
+      <label for="experience">Years of Experience:</label>
+      <input type="number" id="experience" name="experience" required><br><br>
+    </div>
+    <div id="menteeDetails" style="display:none">
+      <label for="goals">Goals:</label>
+      <textarea id="goals" name="goals" required></textarea><br><br>
+    </div>
+    <button type="button" onclick="prevStep(1)">Previous</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  var currentStep = 1;
+  showStep(currentStep);
+
+  function nextStep(n) {
+    showStep(currentStep += n);
+  }
+
+  function prevStep(n) {
+    showStep(currentStep -= n);
+  }
+
+  function showStep(n) {
+    var i;
+    var steps = document.getElementsByClassName("step");
+    if (n > steps.length) {
+      currentStep = steps.length;
+    }
+    if (n < 1) {
+      currentStep = 1;
+    }
+    for (i = 0; i < steps.length; i++) {
+      steps[i].style.display = "none";
+    }
+    steps[currentStep - 1].style.display = "block";
+  }
+
+  function toggleStep5() {
+    var role = document.getElementById("role").value;
+    var mentorDetails = document.getElementById("mentorDetails");
+    var menteeDetails = document.getElementById("menteeDetails");
+
+    if (role === "mentor") {
+      mentorDetails.style.display = "block";
+      menteeDetails.style.display = "none";
+    } else if (role === "mentee") {
+      mentorDetails.style.display = "none";
+      menteeDetails.style.display = "block";
+    }
+  }
+</script>
+<style>
+    body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; 
+}
+
+#stepForm {
+  background: rgba(255, 255, 255, 0.9); 
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.step {
+  display: none;
+}
+
+button {
+  
+    font-size: 1em;
+    font-weight: 700;
+  background-color: var(--clr-#6a0dad); 
+  /* Purple color */
+  color:var(--clr-accent);
+  padding: 0.5em 1em;
+  border: 10px solid var(--clr-accent);
+  border-radius: 5px;
+  
+  cursor: pointer;
+  transition: all 0.3s,
+}
+
+button:hover {
+   
+    background-color: var(--clr-accent);
+    color:var()
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  background-color: var(--clr-#6a0dad); 
+  
+  color:var(--clr-accent);
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+button[type="submit"] {
+  float: right;
+}
+
+
+#stepForm {
+  backdrop-filter: blur(10px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step {
+  display: none;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+
+button {
+  
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4d0b7f; 
+}
+
+
+</style>
+
+</body>
+</html>
+
+
